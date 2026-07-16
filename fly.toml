@@ -1,28 +1,16 @@
-# fly.toml app configuration file generated for webpage-to-markdown-api on 2026-07-16T16:23:06Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'webpage-to-markdown-api'
-primary_region = 'iad'
-
-[build]
-  builder = "paketobuildpacks/builder:base"
-  buildpacks = ["paketo-community/python"]
-
-[build.env]
-  BP_PIP_VERSION = "24.0"
+app = "webpage-to-markdown-api"
+primary_region = "iad"
 
 [http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = false
-  auto_start_machines = true
-  min_machines_running = 1
-  processes = ['app']
+auto_start_machines = true
+auto_stop_machines = false
+force_https = true
+internal_port = 8_080
+min_machines_running = 0
+processes = [ "app" ]
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
-  memory_mb = 256
+cpu_kind = "shared"
+cpus = 1
+memory = "1gb"
+memory_mb = 256
