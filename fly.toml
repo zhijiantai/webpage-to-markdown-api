@@ -1,12 +1,12 @@
-# fly.toml — Webpage-to-Markdown API
-app = "webpage-to-markdown"
+# fly.toml app configuration file generated for webpage-to-markdown-api on 2026-07-16T16:23:06Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'webpage-to-markdown-api'
+primary_region = 'iad'
 
 [build]
-  builder = "paketobuildpacks/builder:base"
-  buildpacks = ["paketo-community/python"]
-
-[env]
-  PORT = "8000"
 
 [http_service]
   internal_port = 8000
@@ -14,20 +14,10 @@ app = "webpage-to-markdown"
   auto_stop_machines = false
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
-[[services]]
-  protocol = "tcp"
-  internal_port = 8080
-
-  [[services.ports]]
-    port = 443
-    handlers = ["tls"]
-  [[services.ports]]
-    port = 80
-    handlers = ["http"]
-
-  [services.concurrency]
-    type = "requests"
-    hard_limit = 100
-    soft_limit = 50
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
