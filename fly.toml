@@ -1,6 +1,9 @@
 app = "webpage-to-markdown-api"
 primary_region = "iad"
 
+[build]
+  dockerfile = "Dockerfile"
+
 [http_service]
 auto_start_machines = true
 auto_stop_machines = false
@@ -9,12 +12,7 @@ internal_port = 8_080
 min_machines_running = 0
 processes = [ "app" ]
 
-[build]
-  builder = "paketobuildpacks/builder:base"
-  buildpacks = ["paketo-community/python"]
-
 [env]
-  BP_PIP_VERSION = "24.0"
   PORT = "8080"
 
 [[vm]]
