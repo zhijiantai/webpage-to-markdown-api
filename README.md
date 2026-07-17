@@ -1,16 +1,40 @@
-# Webpage-to-Markdown API — Koyeb 部署
+# Webpage-to-Markdown API — Fly.io
 
-## 1. Human 做的事
-1. 去 [koyeb.com](https://koyeb.com) 註冊帳號
-2. 用 GitHub 登入（fastest）
-3. 把 main.py 和 requirements.txt push 到 GitHub repo
+**Live:** https://webpage-to-markdown-api-nmptcw.fly.dev
 
-## 2. Agent 做的事
-拿到 GitHub repo URL 後，其餘部署步驟我可以在 terminal 完成或由你按幾下滑鼠完成：
-1. 連 GitHub repo
-2. 設定 Build Command: `pip install -r requirements.txt`
-3. 設定 Start Command: `uvicorn main:app --host 0.0.0.0 --port 8000`
-4. 部署完成
+FastAPI micro-service that converts any URL to clean Markdown.
 
-## 預期 URL
-`https://webpage-to-markdown-<隨機字串>.koyeb.app`
+## API
+
+### GET /health
+```bash
+curl https://webpage-to-markdown-api-nmptcw.fly.dev/health
+# {"status":"ok","version":"1.0.0"}
+```
+
+### GET /convert?url=https://...
+```bash
+curl "https://webpage-to-markdown-api-nmptcw.fly.dev/convert?url=https://example.com"
+# {"url":"...","title":"...","markdown":"# Example Domain...","content_length":167}
+```
+
+## Tech Stack
+
+| Layer | Choice |
+|:------|:-------|
+| Runtime | python:3.12-slim (Dockerfile) |
+| Framework | FastAPI |
+| Dependencies | fastapi[standard], uvicorn, httpx, html2text |
+| Port | 8080 (PORT env var) |
+| Deploy | Fly.io (Git integration) |
+| Repo | zhijiantai/webpage-to-markdown-api |
+
+## Pricing (planned)
+
+- Free tier: 10 calls/month
+- Paid: $0.01/call
+- Platform: RapidAPI (pending)
+
+## SSRF Warning
+
+`/convert` currently accepts arbitrary URLs. A domain allowlist should be added before public production use.
