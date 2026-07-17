@@ -1,22 +1,27 @@
-app = "webpage-to-markdown-api"
-primary_region = "iad"
+# fly.toml app configuration file generated for webpage-to-markdown-api-nmptcw on 2026-07-17T01:13:28Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'webpage-to-markdown-api-nmptcw'
+primary_region = 'ams'
 
 [build]
-  dockerfile = "Dockerfile"
-
-[http_service]
-auto_start_machines = true
-auto_stop_machines = false
-force_https = true
-internal_port = 8_080
-min_machines_running = 0
-processes = [ "app" ]
+  dockerfile = 'Dockerfile'
 
 [env]
-  PORT = "8080"
+  PORT = '8080'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'off'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
 [[vm]]
-cpu_kind = "shared"
-cpus = 1
-memory = "1gb"
-memory_mb = 256
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256
